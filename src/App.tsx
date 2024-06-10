@@ -1,10 +1,11 @@
 import "./App.scss";
 
-import { Canvas } from "@react-three/fiber";
 import { LevaPanel, LevaStoreProvider, useControls, useCreateStore } from "leva";
 import { Suspense } from "react";
 import styled from "styled-components";
 
+import { FluentProvider, webDarkTheme } from "@fluentui/react-components";
+import { HelloWorld } from "./components/dev/HelloWorld";
 import { schema } from "./leva";
 import { useAppSelector } from "./store/global/hooks";
 import { selectHidden } from "./store/global/slice/mouseSlice";
@@ -33,7 +34,9 @@ function App() {
           </span>
         </Container>
         <Container $hideCursor={mouseHidden}>
-          {/* TODO: add something here */}
+          <FluentProvider theme={webDarkTheme}>
+            <HelloWorld />
+          </FluentProvider>
         </Container>
       </LevaStoreProvider>
     </>
@@ -41,7 +44,6 @@ function App() {
 }
 
 const Container = styled.div<{ $hideCursor?: boolean }>`
-  background-color: #111111;
   ${({ $hideCursor: hideCursor }) => (hideCursor ? "cursor: none;" : "")}
 `;
 
