@@ -1,10 +1,10 @@
 import "./App.scss";
 
+import { FluentProvider, Portal, PortalMountNodeProvider, webDarkTheme } from "@fluentui/react-components";
 import { LevaPanel, LevaStoreProvider, useControls, useCreateStore } from "leva";
-import { Suspense } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-import { FluentProvider, webDarkTheme } from "@fluentui/react-components";
 import { HelloWorld } from "./components/dev/HelloWorld";
 import { schema } from "./leva";
 import { useAppSelector } from "./store/global/hooks";
@@ -15,29 +15,32 @@ function App() {
   const store = useCreateStore();
   useControls(schema, { store });
 
+  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
+
   return (
     <>
-      <LevaPanel
-        titleBar
-        store={store}
-        theme={{
-          sizes: {
-            rootWidth: "350px",
-            controlWidth: "150px",
-          },
-        }}
-      />
+      <Portal>
+        <LevaPanel
+          titleBar
+          store={store}
+          theme={{
+            sizes: {
+              rootWidth: "350px",
+              controlWidth: "150px",
+            },
+          }}
+        />
+      </Portal>
       <LevaStoreProvider store={store}>
-        <Container>
-          <span>
-            <Suspense></Suspense>
-          </span>
-        </Container>
-        <Container $hideCursor={mouseHidden}>
-          <FluentProvider theme={webDarkTheme}>
-            <HelloWorld />
-          </FluentProvider>
-        </Container>
+        <FluentProvider theme={webDarkTheme}>
+          <PortalMountNodeProvider value={portalElement!}>
+            <Container $hideCursor={mouseHidden}>
+              <HelloWorld />
+            </Container>
+          </PortalMountNodeProvider>
+
+          <div ref={setPortalElement}></div>
+        </FluentProvider>
       </LevaStoreProvider>
     </>
   );
