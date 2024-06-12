@@ -3,6 +3,7 @@ import "./App.scss";
 import { FluentProvider, Portal, PortalMountNodeProvider, webDarkTheme } from "@fluentui/react-components";
 import { LevaPanel, LevaStoreProvider, useControls, useCreateStore } from "leva";
 import { useState } from "react";
+import { BrowserRouter, Routes } from "react-router-dom";
 import styled from "styled-components";
 
 import { HelloWorld } from "./components/dev/HelloWorld";
@@ -34,6 +35,11 @@ function App() {
       <LevaStoreProvider store={store}>
         <FluentProvider theme={webDarkTheme}>
           <PortalMountNodeProvider value={portalElement!}>
+            <BrowserRouter>
+            <Routes >
+
+            </Routes>
+            </BrowserRouter>
             <Container $hideCursor={mouseHidden}>
               <HelloWorld />
             </Container>
