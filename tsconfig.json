@@ -19,11 +19,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": ["./typings", "node_modules/@types"],
+    "typeRoots": ["node_modules/@types"],
 
     "paths": {
-      "@/*": ["./src/*"],
-      "react-dat-gui": ["./node_modules/react-dat-gui/dist/index.d.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
